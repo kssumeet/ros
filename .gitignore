@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+
+# Build output (regenerate with `npm run build`)
+dist/
+dist-single/
+
+# QA output
+.qa/
+
+# Python
+__pycache__/
+*.pyc
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log

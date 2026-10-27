@@ -1,0 +1,21 @@
+{
+  "name": "ros-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Republic of Sound Audio — website redesign prototype, WordPress handover docs and SEO pack",
+  "license": "UNLICENSED",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "build": "node tools/build.mjs",
+    "serve": "node tools/serve.mjs",
+    "start": "npm run build && npm run serve",
+    "seo:check": "npm run build && python3 tools/seo/build_pack.py && python3 tools/seo/export_guides.py",
+    "qa:install": "npx playwright install chromium",
+    "qa": "node tools/qa.js",
+    "test": "npm run build && node tools/ci-test.mjs"
+  },
+  "devDependencies": {
+    "axe-core": "4.14.0",
+    "playwright": "1.64.1"
+  }
+}
