@@ -62,7 +62,7 @@
     ];
 
     var F = R.feat;
-    var svcImg = { 'home-theatre': 'atmos', acoustics: 'studio', automation: 'install', gear: 'projector', seating: 'multiplex', corporate: 'boardroom' };
+    var svcImg = { 'home-theatre': 'atmos', acoustics: 'studio', automation: 'laser', gear: 'hifi', seating: 'multiplex', corporate: 'boardroom' };
     var stages = [
       ['20 Hz', '01', 'Visit', 'Listen in the demo room, then we measure your space and learn how you will use it.', 'cinema'],
       ['200 Hz', '02', 'Design', 'Speaker layout, screen size, seating and treatment, with a written equipment list and quote.', 'atmos'],
@@ -112,14 +112,20 @@
       '</div></div>' +
     '</section>' +
 
-    /* 4. Services — hover-image list */
-    '<section class="sec sec--light" aria-labelledby="svc-h">' +
+    /* 4. Services — photo tiles */
+    '<section class="sec sec--dark services-sec" aria-labelledby="svc-h">' +
       '<div class="wrap">' +
         U.secHead('What we do', ['Six disciplines,', '<em>one room</em> at a time.'], 'Most rooms need more than one. We plan them together so picture, sound, seating and light work as one system.', 'svc-h') +
-        '<div class="hlist" data-hover-list><div class="hl-float" aria-hidden="true"><img alt="" src="' + R.imgUrl('atmos') + '"></div><ol>' + services.map(function (s, i) {
-          return '<li data-reveal style="--i:' + i + '"><a class="hl-row" href="' + L(s[4]) + '" data-img="' + R.imgUrl(svcImg[s[4]]) + '" data-cta="service-row-' + s[4] + '" data-cursor="Explore">' +
-            '<span class="hl-n">' + s[0] + '</span><span class="hl-name">' + s[2] + '</span><span class="hl-desc">' + s[3] + '</span>' + A.icon('arrow', 'ico hl-arr') + '</a></li>';
-        }).join('') + '</ol></div>' +
+        '<ul class="svc-tiles" role="list">' + services.map(function (s, i) {
+          return '<li class="svc-tile svc-tile--' + (i + 1) + '" data-reveal style="--i:' + (i % 3) + '">' +
+            '<a href="' + L(s[4]) + '" data-cta="service-tile-' + s[4] + '" data-cursor="Explore">' +
+              R.feat.photo(svcImg[s[4]], { reveal: false, credit: false, parallax: false, alt: '' }) +
+              '<span class="st-top"><span class="st-n">' + s[0] + '</span>' + A.icon(s[1], 'st-ico') + '</span>' +
+              '<span class="st-body"><span class="st-name">' + s[2] + '</span><span class="st-desc">' + s[3] + '</span>' +
+              '<span class="st-more">Explore' + A.icon('arrow', 'ico') + '</span></span>' +
+              '<span class="st-eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>' +
+            '</a></li>';
+        }).join('') + '</ul>' +
       '</div>' +
     '</section>' +
 
