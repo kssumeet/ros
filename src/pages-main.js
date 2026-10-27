@@ -48,11 +48,11 @@
     ];
     var services = [
       ['01', 'theatre', 'Home theatre', 'Living-room systems and dedicated cinemas, from 5.1 to full Dolby Atmos.', 'home-theatre'],
-      ['02', 'acoustics', 'Acoustics', 'Treatment that keeps dialogue clear and bass even, plus isolation where neighbours matter.', 'acoustics'],
+      ['02', 'acoustics', 'Acoustics & soundproofing', 'Acoustic engineering, soundproofing and studio setup, so dialogue stays clear and bass stays even.', 'acoustics'],
       ['03', 'automation', 'Automation', 'Lighting scenes, one-touch AV control and motorised screens and curtains.', 'automation'],
       ['04', 'projector', 'Projectors & audio gear', 'Projectors, speakers, subwoofers, receivers and Hi-Fi, matched to your room.', 'gear'],
-      ['05', 'seat', 'Cinema seating', 'Recliners, loungers and tiered seating planned around sightlines.', 'seating'],
-      ['06', 'boardroom', 'Corporate AV', 'Boardrooms, conferencing, auditorium PA and hospitality AV across Jharkhand.', 'corporate']
+      ['05', 'seat', 'Theatre construction & seating', 'Home and commercial theatre construction, premium seating and flooring.', 'seating'],
+      ['06', 'boardroom', 'AV consultancy & corporate', 'Consultancy, custom design and installation for boardrooms, auditoriums and hospitality.', 'corporate']
     ];
     var budgets = [
       ['Under ₹5 lakh', 'Living-room upgrade', ['Soundbar or compact 5.1 system', 'TV or entry projector in an existing room', 'Neat cable routing, basic calibration']],
@@ -105,17 +105,38 @@
 
     /* 3. Statement */
     '<section class="sec sec--dark statement" aria-labelledby="st-h">' +
-      '<div class="wrap"><div class="split">' +
-        '<div class="stat-block" data-reveal><span class="stat-num"><span data-count-to="' + (2026 - 2011) + '">' + (2026 - 2011) + '</span></span><span class="stat-cap">years designing rooms in Ranchi. Established 2011.</span></div>' +
-        '<div><p class="eyebrow">Why ROS</p><h2 class="h-sec big-statement" id="st-h" data-reveal="lines">' + lines(['A great system in', 'the wrong room still', 'sounds <em>wrong.</em>']) + '</h2>' +
-          '<p class="lede muted" data-reveal>So we start with the room: its size, its surfaces, where you sit. Then we choose equipment to suit it, and tune everything until the room disappears and the film takes over.</p></div>' +
-      '</div></div>' +
+      '<div class="wrap">' +
+        '<div class="why">' +
+        '<div class="why-top">' +
+          '<p class="eyebrow">Why ROS</p><h2 class="h-sec big-statement" id="st-h" data-reveal="lines">' + lines(['A great system in', 'the wrong room still', 'sounds <em>wrong.</em>']) + '</h2>' +
+          '<p class="lede muted" data-reveal>So we start with the room: its size, its surfaces, where you sit. Then we choose equipment to suit it, and tune everything until the room disappears and the film takes over.</p>' +
+        '</div>' +
+        '<ul class="why-points" data-reveal="rule">' +
+          [
+            ['<span data-count-to="' + (2026 - 2011) + '">' + (2026 - 2011) + '</span>', 'Years in Ranchi', 'Designing and fitting rooms here since 2011.'],
+            ['Range', 'The finest brands', 'A wide range of speakers, projectors and seating, matched to your room rather than a price list.'],
+            ['One', 'Team, start to finish', 'The people who plan your room also build it, calibrate it and hand it over.']
+          ].map(function (w, i) {
+            return '<li data-reveal style="--i:' + i + '"><span class="why-big"><span>' + w[0] + '</span></span><h3>' + w[1] + '</h3><p class="muted">' + w[2] + '</p></li>';
+          }).join('') +
+        '</ul>' +
+        '</div>' +
+      '</div>' +
     '</section>' +
+
+    /* 3b. Brand reel */
+    (F.reel() ? '<section class="sec sec--dark reel-sec" aria-labelledby="reel-h">' +
+      '<div class="wrap"><div class="reel-split">' +
+        '<div><p class="eyebrow">The reel</p><h2 class="h-sec" id="reel-h" data-reveal="lines">' + lines(['Twenty seconds', 'of <em>what we do.</em>']) + '</h2>' +
+          '<p class="muted" data-reveal>Home theatres, cinemas and the rooms in between. Turn the sound up.</p></div>' +
+        F.reel() +
+      '</div></div>' +
+    '</section>' : '') +
 
     /* 4. Services — photo tiles */
     '<section class="sec sec--dark services-sec" aria-labelledby="svc-h">' +
       '<div class="wrap">' +
-        U.secHead('What we do', ['Six disciplines,', '<em>one room</em> at a time.'], 'Most rooms need more than one. We plan them together so picture, sound, seating and light work as one system.', 'svc-h') +
+        U.secHead('Our audio-visual & acoustic services', ['Six disciplines,', '<em>one room</em> at a time.'], 'Most rooms need more than one. We plan them together so picture, sound, seating and light work as one system.', 'svc-h') +
         '<ul class="svc-tiles" role="list">' + services.map(function (s, i) {
           return '<li class="svc-tile svc-tile--' + (i + 1) + '" data-reveal style="--i:' + (i % 3) + '">' +
             '<a href="' + L(s[4]) + '" data-cta="service-tile-' + s[4] + '" data-cursor="Explore">' +
@@ -186,14 +207,47 @@
       '<p class="wrap xs muted" style="margin-top:1.25rem">Photos from the current rosaudio.com. Project names, clients and details to be confirmed by ROS.</p>' +
     '</section>' +
 
-    /* 10. Brands */
-    '<section class="brands-band" aria-labelledby="brands-h"><div class="wrap"><h2 class="eyebrow" id="brands-h">Brands on the current ROS website · partner status to confirm</h2></div>' + F.marquee() + '</section>' +
-
-    /* 11. Testimonials — approved only */
-    '<section class="sec sec--light sec--tight" aria-labelledby="test-h">' +
-      '<div class="wrap"><div class="empty" data-reveal><span class="q" aria-hidden="true">“</span><div><h2 id="test-h" style="font-family:var(--font-display);font-size:var(--fs-xl);margin-bottom:.5rem">Client stories, in their words, coming soon.</h2>' +
-        '<p class="muted" style="margin:0">We only publish testimonials clients have approved in writing. <span class="placeholder-text">ROS to supply approved quotes</span></p></div></div></div>' +
+    /* 10. Clients and brands (logos from the current rosaudio.com) */
+    '<section class="sec sec--dark clients-sec" aria-labelledby="cl-h">' +
+      '<div class="wrap">' +
+        U.secHead('Clients', ['Who we have', '<em>worked with.</em>'], 'Businesses, venues and institutions shown on the current ROS website. ' + tbc('Project details to confirm'), 'cl-h') +
+        '<ul class="clients" role="list">' + R.CLIENTS.map(function (c, i) {
+          var im = R.IMAGES[c[0]];
+          return '<li data-reveal style="--i:' + (i % 6) + '"><img src="' + R.imgUrl(c[0]) + '" width="' + im.w + '" height="' + im.h + '" alt="' + c[1] + '" loading="lazy" decoding="async"></li>';
+        }).join('') + '</ul>' +
+      '</div>' +
+      '<div class="clients-brands"><div class="wrap"><h3 class="eyebrow">Brands on the current ROS website · partner status to confirm</h3></div>' + F.marquee() + '</div>' +
     '</section>' +
+
+    /* 11. Product range (categories and photos from the current rosaudio.com) */
+    (function () {
+      var groups = [['audio', 'Premium audio gear', 'gear'], ['projectors', 'Premium projectors', 'gear'], ['cables', 'Audio & video cables', 'gear'], ['seating', 'Luxury home & cinema seating', 'seating']];
+      var items = [
+        ['audio', 'atmos', 'Atmos speakers'], ['audio', 'g-satellite', 'Satellite speakers'], ['audio', 'hifi', 'Floor-standing speakers'], ['audio', 'g-wall', 'Wall speakers'],
+        ['audio', 'g-sub', 'Subwoofers'], ['audio', 'g-soundbar', 'Sound bars'], ['audio', 'g-avr', 'AV receivers'], ['audio', 'g-disc', 'CD / Blu-ray players'],
+        ['projectors', 'install', 'LED projectors'], ['projectors', 'g-portable', 'Portable projectors'], ['projectors', 'laser', 'Full HD short-throw projectors'], ['projectors', 'projector', '4K projectors'],
+        ['cables', 'k-usb', 'USB cables'], ['cables', 'k-eth', 'RJ45 Ethernet cables'], ['cables', 'k-optical', 'Optical cables'], ['cables', 'k-audio', 'Audio cables'],
+        ['seating', 's-manual', 'Home theatre recliners, manual'], ['seating', 'recliners', 'Home theatre recliners, motorised'], ['seating', 'multiplex', 'Auditorium, multiplex & cinema chairs'], ['seating', 's-lounger', 'Loungers']
+      ];
+      var gById = {}; groups.forEach(function (g) { gById[g[0]] = g; });
+      var first = groups[0][0];
+      return '<section class="sec sec--paper" aria-labelledby="range-h">' +
+        '<div class="wrap">' +
+          U.secHead('The range', ['Premium gear,', '<em>hand-picked.</em>'], 'What we supply and install, from speakers and projectors to cables and cinema seating. Models change, so ask on WhatsApp for what is in stock.', 'range-h') +
+          '<div class="tabs" role="group" aria-label="Filter the range" data-filter-group="range">' + groups.map(function (g) {
+            return '<button class="chip" type="button" data-filter="' + g[0] + '" aria-pressed="' + (g[0] === first) + '">' + g[1] + '</button>';
+          }).join('') + '</div>' +
+          '<p class="sr-only" role="status" data-filter-status="range"></p>' +
+          '<ul class="rng-grid" role="list" data-filter-target="range">' + items.map(function (it, i) {
+            var im = R.IMAGES[it[1]], g = gById[it[0]];
+            return '<li class="rng" data-cat="' + it[0] + '"' + (it[0] === first ? ' data-reveal style="--i:' + (i % 4) + '"' : ' hidden') + '>' +
+              '<a href="' + L(g[2]) + '" data-cta="range-' + it[1] + '">' +
+                '<span class="rng-ph"><img src="' + R.imgUrl(it[1]) + '" width="' + im.w + '" height="' + im.h + '" alt="" loading="lazy" decoding="async"></span>' +
+                '<span class="rng-g">' + g[1] + '</span><span class="rng-name">' + it[2] + '</span></a></li>';
+          }).join('') + '</ul>' +
+        '</div>' +
+      '</section>';
+    })() +
 
     /* 12. Budget guidance */
     '<section class="sec sec--paper" aria-labelledby="bud-h">' +
@@ -207,7 +261,7 @@
     '</section>' +
 
     /* 13. FAQ */
-    '<section class="sec sec--light" aria-labelledby="faq-h">' +
+    '<section class="sec sec--paper" aria-labelledby="faq-h">' +
       '<div class="wrap"><div class="split">' +
         '<div><p class="eyebrow">Buyer questions</p><h2 class="h-sec" id="faq-h" data-reveal="lines">' + lines(['Before you', '<em>decide.</em>']) + '</h2><p class="muted">Straight answers to what we’re asked most. Anything else, ask on WhatsApp.</p>' + U.btnWA('whatsapp-faq-home', 'Ask a question', 'btn--ghost') + '</div>' +
         U.faq(faqs, 'hfaq') +
@@ -222,14 +276,18 @@
       '</div></div>' +
     '</section>' +
 
-    /* 15. Enquiry form */
-    '<section class="sec sec--charcoal" aria-labelledby="enq-home-title">' +
-      '<div class="wrap"><div class="split">' +
-        '<div><p class="eyebrow">Start a project</p><h2 class="h-sec" data-reveal="lines">' + lines(['Prefer to', 'write it <em>down?</em>']) + '</h2>' +
-          '<p style="color:var(--on-dark-muted)">Share a few details and we’ll suggest the right next step: a demo, a site visit or a quick call.</p>' +
-          '<div class="btn-row" style="margin-top:1.5rem">' + U.btnCalendly('calendly-home-form', 'Or pick a demo slot', 'btn--ghost') + '</div></div>' +
-        U.enquiryForm('enq-home') +
-      '</div></div>' +
+    /* 15. Closing call to action (the full enquiry form lives on the contact page) */
+    '<section class="sec sec--charcoal end-cta" aria-labelledby="end-cta-h">' +
+      '<div class="wrap">' +
+        '<p class="eyebrow" data-reveal>Start a project</p>' +
+        '<h2 class="end-cta-h" id="end-cta-h" data-reveal="lines">' + lines(['Let’s design', 'your <em>room.</em>']) + '</h2>' +
+        '<p class="lede" data-reveal>Tell us about the space and what you watch or listen to. We’ll suggest the right next step: a demo, a site visit or a quick call.</p>' +
+        '<div class="btn-row" data-reveal style="--i:2">' +
+          '<a class="btn btn--primary btn--lg" href="' + L('contact') + '" data-cta="start-project-home" data-cursor="Start">Start a project' + arr() + '</a>' +
+          U.btnDemo('book-demo-home-end', 'Book a free demo', 'btn--ghost btn--lg') +
+          U.btnWA('whatsapp-home-end', 'WhatsApp us', 'btn--ghost btn--lg') +
+        '</div>' +
+      '</div>' +
     '</section>';
     return { html: html, faqs: faqs };
   };

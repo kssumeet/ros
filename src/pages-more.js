@@ -189,24 +189,49 @@
 
   /* ================================================================= CONTACT */
   P.contact = function (route) {
+    var mapsUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('Republic of Sound Audio, Main Road, Ranchi 834001');
+    var ways = [
+      ['phone', 'Call', C.phoneMain.display, 'Talk to the team', C.tel, 'phone-contact-card', false],
+      ['chat', 'WhatsApp', 'Message us', 'Fastest reply: send your room size', C.waLink(), 'whatsapp-contact-card', true],
+      ['mail', 'Email', C.email, 'Drawings and floor plans welcome', 'mailto:' + C.email, 'email-contact-card', false],
+      ['cal', 'Book a demo', '30-minute slot', 'Listen in our demo room', C.bookingUrl, 'calendly-contact-card', true]
+    ];
     var html = U.pageHero(route, {
+      cls: 'page-hero--compact',
       eyebrow: 'Contact',
-      h1: ['Republic of Sound,', '<em>Ranchi.</em>'],
-      lede: 'Call, WhatsApp, email or visit. For the quickest answer, send a WhatsApp message with your room size and what you have in mind.',
-      ctas: U.btnCalendly('calendly-contact-hero', 'Book a free demo') + U.btnWA('whatsapp-contact-hero') + U.btnCall('phone-contact-hero')
+      h1: ['Let’s talk about', 'your <em>room.</em>'],
+      lede: 'Call, message or visit the showroom. Or send the details below and we’ll come back with the right next step.',
+      ctas: ''
     }) +
-    '<section class="sec sec--dark" aria-labelledby="c-details">' +
-      '<div class="wrap"><div class="split split--even">' +
-        '<div><p class="eyebrow">Details</p><h2 class="h-sec" id="c-details">How to <em>reach us.</em></h2>' + P.contactBlock('contact-page') +
-          '<div class="notice" style="margin-top:1.5rem;color:var(--on-dark)"><strong>Before launch:</strong> the address above is the one published on rosaudio.com/contact/. A third-party directory reportedly lists a different location (Satya Enclave, Lake Avenue, Kanke Road, Ranchi 834008). ROS must confirm which is current, plus opening hours and which number handles WhatsApp.</div></div>' +
-        P.mapPlaceholder() +
-      '</div></div>' +
+    '<section class="sec sec--dark contact-ways-sec" aria-label="Ways to reach us">' +
+      '<div class="wrap">' +
+        '<ul class="contact-ways" role="list">' + ways.map(function (w, i) {
+          return '<li data-reveal style="--i:' + i + '"><a class="cw" href="' + w[4] + '" data-cta="' + w[5] + '"' + (w[6] ? ' target="_blank" rel="noopener"' : '') + '>' +
+            '<span class="cw-ico">' + A.icon(w[0]) + '</span>' +
+            '<span class="cw-label">' + w[1] + '</span>' +
+            '<span class="cw-value">' + w[2] + '</span>' +
+            '<span class="cw-note">' + w[3] + '</span>' +
+            A.icon('arrow', 'cw-arr') + (w[6] ? '<span class="sr-only"> (opens in a new tab)</span>' : '') +
+          '</a></li>';
+        }).join('') + '</ul>' +
+        '<p class="cw-tbc">' + U.tbc('Phone and WhatsApp numbers to confirm') + '</p>' +
+      '</div>' +
     '</section>' +
-    '<section class="sec sec--charcoal" id="enquiry" aria-labelledby="enq-contact-title">' +
-      '<div class="wrap"><div class="split">' +
-        '<div><p class="eyebrow">Enquiry</p><h2 class="h-sec" data-reveal="lines">' + lines(['Send us', 'the <em>details.</em>']) + '</h2>' +
-          '<p style="color:var(--on-dark-muted)">Use this form for site visits, acoustic assessments, seating visits and product questions. For corporate projects, use the <a href="' + L('corporate') + '#proposal" style="color:var(--brass)">proposal form</a>.</p></div>' +
-        U.enquiryForm('enq-contact', { heading: 'Request a site visit or call back' }) +
+    '<section class="sec sec--dark contact-main" id="enquiry" aria-labelledby="enq-contact-title">' +
+      '<div class="wrap"><div class="contact-grid">' +
+        U.enquiryForm('enq-contact', { heading: 'Tell us about your room' }) +
+        '<aside class="visit" aria-labelledby="c-details">' +
+          '<p class="eyebrow">Visit the showroom</p><h2 class="h-sec" id="c-details" data-reveal="lines">' + lines(['Find us in', '<em>Ranchi.</em>']) + '</h2>' +
+          '<dl class="visit-list">' +
+            '<div><dt>' + A.icon('pin') + 'Address</dt><dd>' + C.address.lines.join('<br>') + '<br>' + U.tbc('Address to confirm') + '</dd></div>' +
+            '<div><dt>' + A.icon('clock') + 'Hours</dt><dd><span class="placeholder-text">[Opening hours to confirm]</span></dd></div>' +
+            '<div><dt>' + A.icon('info') + 'Areas</dt><dd>Ranchi. Jamshedpur, Dhanbad and Bokaro on request.</dd></div>' +
+          '</dl>' +
+          '<a class="visit-map" href="' + mapsUrl + '" target="_blank" rel="noopener" data-cta="map-search">' + A.scene('map') +
+            '<span class="visit-map-pin" aria-hidden="true">' + A.icon('pin') + '</span>' +
+            '<span class="visit-map-cta">Open in Google Maps' + arr() + '</span><span class="sr-only"> (opens in a new tab)</span></a>' +
+          '<p class="visit-note">Corporate or commercial project? Use the <a href="' + L('corporate') + '#proposal">proposal form</a>.</p>' +
+        '</aside>' +
       '</div></div>' +
     '</section>';
     return { html: html, faqs: [] };

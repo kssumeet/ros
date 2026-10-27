@@ -16,6 +16,16 @@
       credit + '</div>';
   };
 
+  /* Brand reel: native player, nothing autoplays, poster until pressed. Returns '' when no video URL. */
+  F.reel = function () {
+    var src = R.videoUrl('ros-reel.mp4');
+    if (!src) return '';
+    return '<figure class="reel" data-reveal="mask">' +
+      '<video controls playsinline preload="none" width="848" height="478" poster="' + R.videoUrl('ros-reel-poster.jpg') + '" aria-label="Republic of Sound brand reel, 20 seconds, with sound">' +
+      '<source src="' + src + '" type="video/mp4"></video>' +
+      '<figcaption class="xs muted">Republic of Sound reel · 0:20 · sound on</figcaption></figure>';
+  };
+
   /* Round "Play the room" control with rotating text ring. */
   F.playButton = function (id, label) {
     return '<button class="play-orb" type="button" data-play-room id="' + id + '" aria-pressed="false" data-cursor="Listen">' +

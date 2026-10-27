@@ -18,3 +18,6 @@ Thumbs.db
 .vscode/
 .idea/
 *.log
+
+# Raw rosaudio.com content extract (49 MB, local reference only)
+reference/

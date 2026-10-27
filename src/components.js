@@ -87,8 +87,7 @@
         '<div class="foot-grid">' +
           '<div>' +
             '<a class="brand" href="' + link('home') + '" aria-label="Republic of Sound Audio, home">' + A.brandMark() + '<span class="brand-word" aria-hidden="true"><b>REPUBLIC OF SOUND</b><span>AUDIO · RANCHI</span></span></a>' +
-            '<p class="small muted" style="margin-top:1.25rem;max-width:34ch;color:var(--on-dark-muted)">Home theatre, Hi-Fi, acoustics and automation, designed in Ranchi since 2011.</p>' +
-            '<div class="btn-row" style="margin-top:1.25rem">' + btnDemo('book-demo-footer', 'Book a free demo', 'btn--sm') + '</div>' +
+            '<p class="foot-blurb">Home theatre, Hi-Fi, acoustics and automation, designed in Ranchi since 2011.</p>' +
           '</div>' +
           '<div><h2>Services</h2><ul>' + svc + '</ul></div>' +
           '<div><h2>Company</h2><ul>' + co + '</ul></div>' +
@@ -96,13 +95,13 @@
             '<li><a href="' + C.tel + '" data-cta="phone-footer">' + C.phoneMain.display + '</a></li>' +
             '<li><a href="' + C.waLink() + '" target="_blank" rel="noopener" data-cta="whatsapp-footer">WhatsApp<span class="sr-only"> (opens in a new tab)</span></a></li>' +
             '<li><a href="mailto:' + C.email + '" data-cta="email-footer">' + C.email + '</a></li>' +
-            '<li style="color:var(--on-dark-muted)">' + C.address.lines.join(', ') + ' ' + tbc('Address to confirm') + '</li>' +
+            '<li class="foot-addr">' + C.address.lines.join('<br>') + '<br>' + tbc('Address to confirm') + '</li>' +
           '</ul></div>' +
         '</div>' +
         '<p class="foot-mark" aria-hidden="true"><span>Republic</span> <em>of</em> <span>Sound</span></p>' +
         '<div class="foot-base">' +
-          '<div><span>Brands shown on the current website: ' + C.brandsReferenced.join(', ') + '.</span> ' + tbc('Partner status to confirm') + '</div>' +
-          '<div>© <span data-year>2026</span> Republic of Sound Audio. Social links: ' + tbc('None published yet') + '</div>' +
+          '<span>© <span data-year>2026</span> Republic of Sound Audio · Ranchi, Jharkhand · We sound sensible.</span>' +
+          '<span>Designed by <a class="foot-credit" href="https://arobuz.com/" target="_blank" rel="noopener" data-cta="credit-arobuz">Arobuz Agency LLP<span class="sr-only"> (opens in a new tab)</span></a></span>' +
         '</div>' +
       '</div>' +
     '</footer>';
@@ -116,14 +115,14 @@
     return '<nav class="crumbs" aria-label="Breadcrumb"><ol>' + items.join('') + '</ol></nav>';
   }
   function pageHero(route, o) {
-    return '<section class="page-hero">' + '<canvas class="viz viz--soft" aria-hidden="true"></canvas>' +
+    return '<section class="page-hero' + (o.cls ? ' ' + o.cls : '') + '">' + '<canvas class="viz viz--soft" aria-hidden="true"></canvas>' +
       '<div class="wrap">' + crumbs(route) +
         '<div class="page-hero-grid">' +
           '<div>' +
             '<p class="eyebrow">' + o.eyebrow + '</p>' +
             '<h1 class="display" data-reveal="lines" tabindex="-1">' + lines(o.h1) + '</h1>' +
             '<p class="lede" data-reveal style="--i:2">' + o.lede + '</p>' +
-            '<div class="btn-row" data-reveal style="--i:3">' + o.ctas + '</div>' +
+            (o.ctas ? '<div class="btn-row" data-reveal style="--i:3">' + o.ctas + '</div>' : '') +
           '</div>' +
           (o.photo ? R.feat.photo(o.photo, { eager: true, cls: 'ph--hero' }) : o.scene ? A.figure(o.scene, o.alt, { reveal: true, cls: o.figCls }) : '') +
         '</div>' +

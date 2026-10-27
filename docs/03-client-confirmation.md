@@ -37,12 +37,12 @@ Each item is shown with a **To confirm** label or a `[placeholder]` in the proto
 
 ## Proof
 24. **Projects.** Choose at least 3 completed projects that have client permission. For each, supply the title, location, room dimensions, brief, challenge, ROS scope, equipment list, an outcome you can document, and photographs.
-25. **Client logos on the current homepage**, such as Jindal and Hotel Z3. Do you have written permission to show them? They are not used until you do.
+25. **Client logos on the current homepage**, such as Jindal and Hotel Z3. Do you have written permission to show them? The prototype now shows all 18 from the current site in a "Clients" section on the home page, labelled "Project details to confirm". Remove any you can't confirm before launch.
 26. **Testimonials.** Please supply approved quotes with name and project, and written consent.
 27. **Guide author.** Should guides carry a named author, and what are their credentials? Otherwise they are credited to the organisation.
 
 ## Housekeeping
 28. **Ayurveda posts** (`/panchakarma-treatment-blog/` and two others). These are on rosaudio.com. Were they published by mistake? Should they be removed (410) or redirected?
 29. **Privacy policy.** Who will write and approve it? It's needed for form consent under the DPDP Act 2023.
-30. **Photography.** The prototype uses 10 photos from rosaudio.com. Does ROS own them, or have the rights to use them? Several look like stock (AdobeStock, iStock) or manufacturer images (Klipsch). Which, if any, show real ROS installations? Will ROS commission a shoot of the demo room and projects?
+30. **Photography.** The prototype uses 23 photos from rosaudio.com, including the 20-item product range on the home page. Several of the product shots look like marketplace or stock listings: an Amazon product image, Shutterstock and iStock previews, and a recliner photo with another company's watermark. Those need replacing or licensing before launch. Does ROS own them, or have the rights to use them? Several look like stock (AdobeStock, iStock) or manufacturer images (Klipsch). Which, if any, show real ROS installations? Will ROS commission a shoot of the demo room and projects?
 31. **Brands.** The current site shows 18 brand logos, not 3. Please confirm which of these are active partners.

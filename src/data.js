@@ -180,8 +180,38 @@
     boardroom: { w: 600, h: 400, alt: 'Glass-walled boardroom with a wall-mounted display' },
     install:   { w: 600, h: 600, alt: 'Technician adjusting a ceiling-mounted projector' }
   };
+  /* Product-range photos from the rosaudio.com home page (several are stock or marketplace images). */
+  var RANGE_IMAGES = {
+    'g-satellite': { w: 520, h: 520, alt: 'Compact satellite speakers beside a subwoofer' },
+    'g-wall':      { w: 520, h: 520, alt: 'White on-wall speakers either side of a wall-mounted TV' },
+    'g-sub':       { w: 520, h: 520, alt: 'Twin-driver subwoofer enclosure' },
+    'g-soundbar':  { w: 520, h: 520, alt: 'Soundbar on a low media unit under a TV' },
+    'g-avr':       { w: 520, h: 520, alt: 'Black AV receiver with a large volume dial' },
+    'g-disc':      { w: 520, h: 520, alt: 'Blu-ray disc drive with a disc in the tray' },
+    'g-portable':  { w: 520, h: 520, alt: 'Portable projector carried by its handle' },
+    'k-usb':       { w: 520, h: 520, alt: 'White USB-A to USB-C cable' },
+    'k-eth':       { w: 259, h: 259, alt: 'Bundle of blue Ethernet cables with RJ45 plugs' },
+    'k-optical':   { w: 326, h: 326, alt: 'Fibre-optic cable with exposed strands' },
+    'k-audio':     { w: 408, h: 408, alt: 'Pile of gold-plated audio and video cables' },
+    's-manual':    { w: 431, h: 431, alt: 'Two rows of tan manual home theatre recliners' },
+    's-lounger':   { w: 520, h: 520, alt: 'Green chaise lounger by a window' }
+  };
+  /* Client logos as shown on the rosaudio.com home page. Project details are unconfirmed. */
+  var CLIENTS = [
+    ['cl-jindal', 'Jindal Steel & Power'], ['cl-swarnbhumi', 'Swarnbhumi'], ['cl-aargee', 'Aargee'],
+    ['cl-hotel-z3', 'Hotel Z3'], ['cl-chaos', 'Chaos'], ['cl-srs', 'SRS Cinemas'],
+    ['cl-hr-music', 'HR Music'], ['cl-ohas', 'Oha\u2019s Media Audio-Visual Lab'], ['cl-nexus', 'Nexus Green Homes'],
+    ['cl-christ-king', 'Christ the King Catholic Church'], ['cl-nightowl', 'Night Owl'], ['cl-vox', 'VOX'],
+    ['cl-moonlab', 'Moon Lab Studios'], ['cl-jharkhand', 'Government of Jharkhand'], ['cl-tamashaa', 'Tamashaa'],
+    ['cl-one8', 'One8 Commune'], ['cl-credo', 'Credo World School, Dhanbad'], ['cl-studio-taleem', 'Studio Taleem']
+  ];
+  Object.keys(RANGE_IMAGES).forEach(function (k) { IMAGES[k] = RANGE_IMAGES[k]; });
+  CLIENTS.forEach(function (c) { IMAGES[c[0]] = { w: 400, h: 273, alt: c[1] + ' logo' }; });
+  R.CLIENTS = CLIENTS;
   R.IMAGES = IMAGES;
   R.imgUrl = function (k) { return (R.IMG_INLINE && R.IMG_INLINE[k]) || (R.IMG_BASE || '/assets/img/') + k + '.webp'; };
+  /* Video is not inlined, so the single-file build (which has IMG_INLINE) gets null and skips it. */
+  R.videoUrl = function (file) { return R.IMG_INLINE ? null : '/assets/video/' + file; };
 
   R.CONFIG = CONFIG;
   R.ROUTES = ROUTES;

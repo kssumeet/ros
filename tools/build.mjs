@@ -97,6 +97,7 @@ fs.writeFileSync(path.join(DIST, 'assets/site.css'), css);
 fs.writeFileSync(path.join(DIST, 'assets/site.js'), contentJs + '\n' + appJs);
 fs.mkdirSync(path.join(DIST, 'assets/img'), { recursive: true });
 for (const f of imgFiles) fs.copyFileSync(path.join(IMG_DIR, f), path.join(DIST, 'assets/img', f));
+fs.cpSync(path.join(SRC, 'video'), path.join(DIST, 'assets/video'), { recursive: true });
 const R = loadContent();
 for (const route of R.ROUTES) {
   const page = render(R, route);
