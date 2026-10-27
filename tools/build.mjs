@@ -21,12 +21,17 @@ const appJs = BROWSER_FILES.map(read).join('\n');
 // Content hashes for cache-busting: a changed file gets a new ?v=, so browsers never mix old and new CSS/JS.
 const hash = (s) => crypto.createHash('sha256').update(s).digest('hex').slice(0, 10);
 const cssV = hash(css);
-const jsV = hash(contentJs + '\n' + appJs);
+// Same for every image and video: { 'img/atmos.webp': '<hash>', 'video/ros-reel.mp4': '<hash>' }
+const ASSET_V = {};
+for (const dir of ['img', 'video']) for (const f of fs.readdirSync(path.join(SRC, dir))) ASSET_V[dir + '/' + f] = hash(fs.readFileSync(path.join(SRC, dir, f)));
+// site.js carries the map so pages rendered in the browser get the same versioned URLs
+const siteJs = `(window.ROS = window.ROS || {}).ASSET_V = ${JSON.stringify(ASSET_V)};\n` + contentJs + '\n' + appJs;
+const jsV = hash(siteJs);
 const IMG_DIR = path.join(SRC, 'img');
 const imgFiles = fs.readdirSync(IMG_DIR).filter((f) => f.endsWith('.webp'));
 
 function loadContent(hrefFn, inlineImgs) {
-  const ctx = { console, ROS: inlineImgs ? { IMG_INLINE: inlineImgs } : {} };
+  const ctx = { console, ROS: inlineImgs ? { IMG_INLINE: inlineImgs } : { ASSET_V } };
   ctx.globalThis = ctx;
   vm.createContext(ctx);
   vm.runInContext(contentJs, ctx);
@@ -99,7 +104,7 @@ function render(R, route) {
 fs.rmSync(DIST, { recursive: true, force: true });
 fs.mkdirSync(path.join(DIST, 'assets'), { recursive: true });
 fs.writeFileSync(path.join(DIST, 'assets/site.css'), css);
-fs.writeFileSync(path.join(DIST, 'assets/site.js'), contentJs + '\n' + appJs);
+fs.writeFileSync(path.join(DIST, 'assets/site.js'), siteJs);
 fs.mkdirSync(path.join(DIST, 'assets/img'), { recursive: true });
 for (const f of imgFiles) fs.copyFileSync(path.join(IMG_DIR, f), path.join(DIST, 'assets/img', f));
 fs.cpSync(path.join(SRC, 'video'), path.join(DIST, 'assets/video'), { recursive: true });

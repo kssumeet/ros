@@ -209,9 +209,11 @@
   CLIENTS.forEach(function (c) { IMAGES[c[0]] = { w: 400, h: 273, alt: c[1] + ' logo' }; });
   R.CLIENTS = CLIENTS;
   R.IMAGES = IMAGES;
-  R.imgUrl = function (k) { return (R.IMG_INLINE && R.IMG_INLINE[k]) || (R.IMG_BASE || '/assets/img/') + k + '.webp'; };
+  /* ?v=<content hash> from the build, so a replaced file is never served from a stale cache */
+  function ver(file) { var v = R.ASSET_V && R.ASSET_V[file]; return v ? '?v=' + v : ''; }
+  R.imgUrl = function (k) { return (R.IMG_INLINE && R.IMG_INLINE[k]) || (R.IMG_BASE || '/assets/img/') + k + '.webp' + ver('img/' + k + '.webp'); };
   /* Video is not inlined, so the single-file build (which has IMG_INLINE) gets null and skips it. */
-  R.videoUrl = function (file) { return R.IMG_INLINE ? null : '/assets/video/' + file; };
+  R.videoUrl = function (file) { return R.IMG_INLINE ? null : '/assets/video/' + file + ver('video/' + file); };
 
   R.CONFIG = CONFIG;
   R.ROUTES = ROUTES;
