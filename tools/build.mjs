@@ -4,6 +4,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import vm from 'node:vm';
+import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -17,6 +18,10 @@ const read = (f) => fs.readFileSync(path.join(SRC, f), 'utf8');
 const css = read('styles.css');
 const contentJs = CONTENT_FILES.map(read).join('\n');
 const appJs = BROWSER_FILES.map(read).join('\n');
+// Content hashes for cache-busting: a changed file gets a new ?v=, so browsers never mix old and new CSS/JS.
+const hash = (s) => crypto.createHash('sha256').update(s).digest('hex').slice(0, 10);
+const cssV = hash(css);
+const jsV = hash(contentJs + '\n' + appJs);
 const IMG_DIR = path.join(SRC, 'img');
 const imgFiles = fs.readdirSync(IMG_DIR).filter((f) => f.endsWith('.webp'));
 
@@ -37,10 +42,10 @@ function shell(R, route, page, { inline, mode }) {
   const C = R.CONFIG;
   const abs = C.origin + route.path;
   const ld = R.schemaFor(route, page.faqs);
-  const styles = inline ? `<style>${css}</style>` : `<link rel="stylesheet" href="/assets/site.css">`;
+  const styles = inline ? `<style>${css}</style>` : `<link rel="stylesheet" href="/assets/site.css?v=${cssV}">`;
   const scripts = inline
     ? `<script>window.ROS_MODE=${JSON.stringify(mode)};window.ROS={IMG_INLINE:${JSON.stringify(R.IMG_INLINE)}};</script><script>${contentJs}\n${appJs}</script>`
-    : `<script src="/assets/site.js" defer></script>`;
+    : `<script src="/assets/site.js?v=${jsV}" defer></script>`;
   return `<!doctype html>
 <html lang="en-IN">
 <head>
