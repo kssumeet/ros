@@ -1,0 +1,14 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "npm ci --omit=dev",
+  "buildCommand": "node tools/build.mjs",
+  "outputDirectory": "dist",
+  "trailingSlash": true,
+  "headers": [
+    {
+      "source": "/assets/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=3600" }]
+    }
+  ]
+}
