@@ -10,68 +10,68 @@
   P.projects = function (route) {
     var cats = [['all', 'All'], ['living-room', 'Living room'], ['dedicated-theatre', 'Dedicated theatre'], ['acoustics', 'Acoustics'], ['corporate', 'Corporate']];
     var cases = [
-      { n: 1, cat: 'dedicated-theatre', label: 'Dedicated theatre', scene: 'multiplex', service: 'home-theatre', guide: 'guide-atmos', title: 'Dedicated theatre case study' },
-      { n: 2, cat: 'living-room', label: 'Living room', scene: 'atmos', service: 'home-theatre', guide: 'guide-cost', title: 'Living-room Atmos case study' },
-      { n: 3, cat: 'corporate', label: 'Corporate', scene: 'boardroom', service: 'corporate', guide: null, title: 'Boardroom AV case study' }
+      { n: 1, cat: 'dedicated-theatre', label: 'Dedicated theatre', scene: 'multiplex', more: ['recliners', 'install'], service: 'home-theatre', guide: 'guide-atmos', title: 'Dedicated theatre' },
+      { n: 2, cat: 'living-room', label: 'Living room', scene: 'atmos', more: ['projector', 'hifi'], service: 'home-theatre', guide: 'guide-cost', title: 'Living-room Dolby Atmos' },
+      { n: 3, cat: 'corporate', label: 'Corporate', scene: 'boardroom', more: ['laser', 'install'], service: 'corporate', guide: null, title: 'Boardroom AV' }
     ];
     var extra = [
-      { cat: 'acoustics', label: 'Acoustics', scene: 'studio', title: 'Studio acoustics project' },
-      { cat: 'living-room', label: 'Living room', scene: 'hifi', title: 'Hi-Fi listening room project' },
-      { cat: 'corporate', label: 'Commercial', scene: 'cinema', title: 'Cinema auditorium project' }
+      { cat: 'acoustics', label: 'Acoustics', scene: 'studio', title: 'Studio acoustics' },
+      { cat: 'living-room', label: 'Living room', scene: 'hifi', title: 'Hi-Fi listening room' },
+      { cat: 'corporate', label: 'Commercial', scene: 'cinema', title: 'Cinema auditorium' }
     ];
-    function card(c, i) {
-      var inner = R.feat.photo(c.scene, { reveal: false, parallax: false }) +
-        '<p class="proj-meta"><span>' + c.label + '</span><span aria-hidden="true">·</span>' + ph('Location to confirm') + '</p>';
-      if (c.n) return '<a class="card proj" href="#case-' + c.n + '" data-cat="' + c.cat + '" data-cta="project-card-' + c.n + '">' + inner + '<h3><span>' + c.title + '</span>' + A.icon('arrow', 'ico arr') + '</h3><p class="small muted" style="margin:.4rem 0 0">Case-study template · ' + ph('Client/project to confirm') + '</p></a>';
-      return '<article class="card proj" data-cat="' + c.cat + '">' + inner + '<h3><span>' + c.title + '</span></h3><p class="small muted" style="margin:.4rem 0 0">Awaiting project details and photos from ROS.</p></article>';
+    var outline = [
+      ['Brief', 'What the client wanted, in their words.'],
+      ['Challenge', 'The room, building or budget constraint that shaped the design.'],
+      ['Our scope', 'Only what ROS delivered: design, acoustics, supply, installation, calibration.'],
+      ['Equipment', 'Display, speaker layout, amplification, seating, lighting and control.'],
+      ['Result', 'A measured or observable outcome. No unverified claims.'],
+      ['Client’s words', 'An approved quote with the client’s name.']
+    ];
+    function tile(c, i) {
+      var body = R.feat.photo(c.scene, { reveal: false, parallax: false, credit: false, alt: '' }) +
+        '<span class="pt-body"><span class="pt-cat">' + c.label + '</span><span class="pt-title">' + c.title + '</span>' +
+        '<span class="pt-more">' + (c.n ? 'View case study' + arr() : 'Details coming soon') + '</span></span>';
+      return c.n
+        ? '<a class="pt pt--' + (i + 1) + '" href="#case-' + c.n + '" data-cat="' + c.cat + '" data-cta="project-card-' + c.n + '" data-cursor="View">' + body + '</a>'
+        : '<div class="pt pt--' + (i + 1) + '" data-cat="' + c.cat + '">' + body + '</div>';
     }
-    function caseStudy(c) {
-      return '<article class="case" id="case-' + c.n + '" aria-labelledby="case-' + c.n + '-h">' +
-        '<p class="eyebrow">Case study ' + c.n + ' · ' + c.label + ' · template</p>' +
-        '<h2 class="h-sec" id="case-' + c.n + '-h" style="max-width:none">' + ph('Project title') + ' <span class="muted" style="font-size:.6em">— ' + c.title + '</span></h2>' +
-        '<div class="case-grid">' +
-          '<div>' +
-            '<dl class="facts">' +
-              '<dt>Client</dt><dd>' + ph('Client/project to confirm') + '</dd>' +
-              '<dt>Location</dt><dd>' + ph('Area, city') + '</dd>' +
-              '<dt>Room</dt><dd>' + ph('L × W × H in metres') + '</dd>' +
-              '<dt>Year</dt><dd>' + ph('Year completed') + '</dd>' +
-            '</dl>' +
-            '<h3>Client brief</h3><p>' + ph('What the client wanted, in their words') + '</p>' +
-            '<h3>Challenge</h3><p>' + ph('Room, building or budget constraint that shaped the design') + '</p>' +
-            '<h3>ROS scope</h3><p>' + ph('Design, acoustics, supply, installation, calibration — only what ROS delivered') + '</p>' +
-            '<h3>Equipment list</h3><ul class="small"><li>' + ph('Display / projector and screen') + '</li><li>' + ph('Speakers and layout, e.g. 7.1.4') + '</li><li>' + ph('Amplification / processor') + '</li><li>' + ph('Seating, lighting, control') + '</li></ul>' +
-            '<h3>Documented result</h3><p>' + ph('Measured or observable outcome — no unverified claims') + '</p>' +
-            '<h3>Client quote</h3><p>' + ph('Approved quote with name, or remove this block') + '</p>' +
-          '</div>' +
-          '<div>' + R.feat.photo(c.scene) +
-            '<div class="grid g-2" style="margin-top:1rem">' + R.feat.photo('install', { parallax: false }) + R.feat.photo('hifi', { parallax: false }) + '</div>' +
-            '<p class="xs muted" style="margin-top:.75rem">Photos from rosaudio.com used as stand-ins. Replace with photos of this specific project.</p>' +
-            '<p class="small" style="margin-top:1.5rem"><strong>Related:</strong> <a href="' + L(c.service) + '" style="color:var(--brass-ink)">' + R.routeById[c.service].nav + '</a>' +
-              (c.guide ? ' · <a href="' + L(c.guide) + '" style="color:var(--brass-ink)">' + R.routeById[c.guide].nav + '</a>' : '') + '</p>' +
-          '</div>' +
+    function caseStudy(c, i) {
+      return '<article class="cs' + (i % 2 ? ' cs--rev' : '') + '" id="case-' + c.n + '" aria-labelledby="case-' + c.n + '-h">' +
+        '<div class="cs-media" data-reveal>' + R.feat.photo(c.scene, { ratio: '4 / 3', parallax: false }) +
+          '<div class="cs-thumbs">' + c.more.map(function (k) { return R.feat.photo(k, { ratio: '4 / 3', parallax: false, credit: false }); }).join('') + '</div></div>' +
+        '<div class="cs-body">' +
+          '<p class="eyebrow">Case study 0' + c.n + ' · ' + c.label + '</p>' +
+          '<h2 class="h-sec" id="case-' + c.n + '-h" data-reveal="lines">' + lines([c.title]) + '</h2>' +
+          '<dl class="cs-facts">' + ['Client', 'Location', 'Room size', 'Year'].map(function (f) { return '<div><dt>' + f + '</dt><dd>—</dd></div>'; }).join('') + '</dl>' +
+          '<p class="cs-tbc">' + tbc('Project details and photos to confirm with ROS') + '</p>' +
+          '<ol class="cs-outline">' + outline.map(function (o) { return '<li><h3>' + o[0] + '</h3><p>' + o[1] + '</p></li>'; }).join('') + '</ol>' +
+          '<p class="cs-related">Related: <a href="' + L(c.service) + '">' + R.routeById[c.service].nav + '</a>' +
+            (c.guide ? ' · <a href="' + L(c.guide) + '">' + R.routeById[c.guide].nav + '</a>' : '') + '</p>' +
         '</div>' +
       '</article>';
     }
     var html = U.pageHero(route, {
+      cls: 'page-hero--compact',
       eyebrow: 'Projects',
-      h1: ['Home theatre', 'projects <em>in Ranchi.</em>'],
-      lede: 'Every case study will show the brief, the constraints, what ROS delivered and what changed. Content is being gathered with client approval.',
-      ctas: U.btnDemo('book-demo-projects-hero') + U.btnWA('whatsapp-projects-hero')
+      h1: ['Rooms we’ve', 'designed <em>and built.</em>'],
+      lede: 'Cinemas, living rooms, studios and boardrooms. Filter by type, then open a project for the brief, the constraints and what we delivered.',
+      ctas: ''
     }) +
-    '<section class="sec sec--light" aria-labelledby="proj-grid-h">' +
+    '<section class="sec sec--dark proj-sec" aria-labelledby="proj-grid-h">' +
       '<div class="wrap">' +
-        '<div class="notice" style="margin-bottom:2.5rem"><strong>Placeholder content.</strong> No client names, logos, photos or results are shown until ROS confirms each project and has client permission. Client logos on the current homepage are not reused as endorsements.</div>' +
         '<h2 class="sr-only" id="proj-grid-h">Project list</h2>' +
-        '<div class="tabs" role="group" aria-label="Filter projects by type" data-filter-group="projects">' +
-          cats.map(function (c, i) { return '<button class="chip" type="button" data-filter="' + c[0] + '" aria-pressed="' + (i === 0) + '">' + c[1] + '</button>'; }).join('') +
+        '<div class="proj-bar">' +
+          '<div class="tabs" role="group" aria-label="Filter projects by type" data-filter-group="projects">' +
+            cats.map(function (c, i) { return '<button class="chip" type="button" data-filter="' + c[0] + '" aria-pressed="' + (i === 0) + '">' + c[1] + '</button>'; }).join('') +
+          '</div>' +
+          '<p class="proj-status" role="status" data-filter-status="projects">Showing all 6 projects</p>' +
         '</div>' +
-        '<p class="small muted" role="status" data-filter-status="projects">Showing all 6 projects</p>' +
-        '<div class="grid g-3" data-filter-target="projects" style="margin-top:1.5rem">' + cases.map(card).join('') + extra.map(card).join('') + '</div>' +
-        '<div class="empty" data-filter-empty="projects" hidden style="margin-top:1.5rem;border-color:rgba(16,17,18,.25)"><span class="q" aria-hidden="true">–</span><div><h3>No projects in this category yet</h3><p class="muted" style="margin:0">Try another filter or <a href="' + L('contact') + '" style="color:var(--brass-ink)">ask us about similar work</a>.</p></div></div>' +
+        '<div class="pt-grid" data-filter-target="projects">' + cases.map(tile).join('') + extra.map(function (c, i) { return tile(c, i + 3); }).join('') + '</div>' +
+        '<div class="empty" data-filter-empty="projects" hidden><span class="q" aria-hidden="true">–</span><div><h3>No projects in this category yet</h3><p class="muted" style="margin:0">Try another filter or <a href="' + L('contact') + '" style="color:var(--brass)">ask us about similar work</a>.</p></div></div>' +
+        '<p class="proj-note">' + tbc('Photos from the current rosaudio.com · project names, clients and locations to confirm') + '</p>' +
       '</div>' +
     '</section>' +
-    '<section class="sec sec--paper" aria-label="Case-study templates">' +
+    '<section class="sec sec--paper cs-sec" aria-label="Case studies">' +
       '<div class="wrap">' + cases.map(caseStudy).join('') + '</div>' +
     '</section>' +
     U.ctaBand({ id: 'proj-cta', h2: ['Hear a room', 'like these, <em>live.</em>'], text: 'The fastest way to judge our work is thirty minutes in the demo room.',
